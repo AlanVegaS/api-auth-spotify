@@ -10,7 +10,7 @@ app.use(cors({ origin: whiteList }));
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.status(200).json({ "message": "Hello world!" });
+  res.status(200).json({ "message": "Hello world!!!" });
 });
 
 router.post('/auth/spotify/token', async (req, res) => {
