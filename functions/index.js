@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import serverless from "serverless-http";
 
-const whiteList = ['https://spotify-alanvm.netlify.app/'];
+const whiteList = ['https://spotify-alanvm.netlify.app'];
 
 const app = express();
 app.use(cors({ origin: whiteList }));
