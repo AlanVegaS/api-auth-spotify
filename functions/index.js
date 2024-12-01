@@ -1,32 +1,28 @@
 import express from "express";
 import cors from "cors";
 import serverless from "serverless-http";
-import dotenv from "dotenv";
 
-const dotenvConfig = dotenv.config();
+const whiteList = ['https://spotify-alanvm.netlify.app/'];
 
 const app = express();
-app.use(cors());
-
-const PORT = 5000;
+app.use(cors({ origin: whiteList }));
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.status(200).json({ "message": "Hello world" });
+  res.status(200).json({ "message": "Hello world!!" });
 });
 
-router.get('/auth/spotify/token', async (req, res) => {
+router.post('/auth/spotify/token', async (req, res) => {
   const token = await getToken();
   if (token)
     res.status(200).json({ ...token });
-    else 
-    res.status(500).json({ "error": "Error to obtain sptofy token" });
+  else
+    res.status(500).json({ "error": "Error to obtain spotify token" });
 });
 
 app.use('/.netlify/functions/index', router);
 export const handler = serverless(app);
-// app.listen(port);
 
 async function getToken() {
   const response = await fetch('https://accounts.spotify.com/api/token', {
